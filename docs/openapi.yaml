@@ -1,0 +1,731 @@
+openapi: 3.0.3
+info:
+  title: Todos-Api
+  version: 1.0.0
+  description: A basic todos app
+  contact:
+    email: jccaceres01@gmail.com
+    name: Julio Caceres
+  license:
+    name: GPL
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+paths:
+  /api/priorities:
+    summary: Priorities path
+    description: Priorities of task in our todos api
+    get:
+      summary: Get all priorities for the loged user
+      description: Get all priorities owner by authenticated user
+      operationId: priorities_get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                User's Priorities:
+                  value: |-
+                    [
+                        {
+                            "id": 1,
+                            "name": "priority 1",
+                            "description": "Ullam nobis labore consequatur unde quis velit eos dolores.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 1
+                        },
+                        {
+                            "id": 2,
+                            "name": "priority 2",
+                            "description": "Veritatis dolor consequuntur natus sequi eius autem asperiores.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 1
+                        },
+                        {
+                            "id": 3,
+                            "name": "priority 3",
+                            "description": "Libero possimus dolore tenetur iusto.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 1
+                        },
+                        {
+                            "id": 4,
+                            "name": "priority 4",
+                            "description": "Quisquam voluptatibus perferendis natus excepturi.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 1
+                        }
+                    ]
+        default:
+          description: Default error sample response
+      tags:
+        - Priorities
+    post:
+      summary: Create user's prioritiy
+      description: Create new priority to use as priority tag in a task
+      operationId: priority_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Priorities'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                New proority:
+                  value: |-
+                    {
+                        "id": 45,
+                        "name": "name...",
+                        "description": "Desc...",
+                        "user_id": 1,
+                        "updatedAt": "2023-06-03T23:41:13.606Z",
+                        "createdAt": "2023-06-03T23:41:13.606Z",
+                        "UserId": 1
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Priorities
+  /api/priorities/{priority_id}:
+    summary: Get user's priority by id
+    description: Get specific priority by id if the authenticated user is owner
+    parameters:
+      - in: path
+        name: priority_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the priority to get
+    get:
+      summary: Get priority by id
+      description: ''
+      operationId: priorities_get_by_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Priority:
+                  value: |-
+                    {
+                        "id": 1,
+                        "name": "priority 1",
+                        "description": "Ullam nobis labore consequatur unde quis velit eos dolores.",
+                        "user_id": 1,
+                        "createdAt": null,
+                        "updatedAt": null,
+                        "UserId": 1
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Priorities
+    put:
+      summary: Update priority
+      description: Update and existing user's priority
+      operationId: priority_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Priorities'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Updated priority:
+                  value: |-
+                    {
+                        "id": 2,
+                        "name": "name...",
+                        "description": "Desc...",
+                        "user_id": 1,
+                        "createdAt": null,
+                        "updatedAt": "2023-06-04T00:03:28.075Z",
+                        "UserId": 1
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Priorities
+    delete:
+      summary: Delete priority
+      description: Delete user's existing priority
+      operationId: priorities_delete
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                confirm deleted:
+                  value: 'true'
+        default:
+          description: Default error sample response
+      tags:
+        - Priorities
+  /api/categories:
+    summary: Category End-Points
+    description: End-Points for categories used for tags tasks
+    get:
+      summary: Get categories
+      description: Get all categories of the authenticated user
+      operationId: categories_get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                All users categories:
+                  value: |-
+                    [
+                        {
+                            "id": 1,
+                            "name": "cum",
+                            "description": "Quod totam doloribus.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 1
+                        },
+                        {
+                            "id": 2,
+                            "name": "adipisci",
+                            "description": "Deserunt autem optio quae.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 1
+                        },
+                        {
+                            "id": 3,
+                            "name": "temporibus",
+                            "description": "Consequuntur quae non soluta laudantium sapiente corporis vel consectetur.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 1
+                        }
+                    ]
+        default:
+          description: Default error sample response
+      tags:
+        - Categories
+    post:
+      summary: Create Category
+      description: >-
+        Create new category for the authenticated user, this category is used
+        for tags tasks
+      operationId: category_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categories'
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              examples:
+                Category:
+                  value: |-
+                    {
+                        "id": 38,
+                        "name": "New cat",
+                        "description": "New cat desc....",
+                        "user_id": 1,
+                        "updatedAt": "2023-06-04T00:06:46.576Z",
+                        "createdAt": "2023-06-04T00:06:46.576Z",
+                        "UserId": 1
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Categories
+  /api/categories/{category_id}:
+    summary: Categories End-Point
+    description: End-point for categories used for tags tasks
+    parameters:
+      - in: path
+        name: category_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the category to get
+    get:
+      summary: Get category by id
+      description: Get categgory by id for the authenticated user
+      operationId: category_get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Category:
+                  value: |-
+                    {
+                        "id": 3,
+                        "name": "temporibus",
+                        "description": "Consequuntur quae non soluta laudantium sapiente corporis vel consectetur.",
+                        "user_id": 1,
+                        "createdAt": null,
+                        "updatedAt": null,
+                        "UserId": 1
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Categories
+    put:
+      summary: Update Category
+      description: Update category by id for the authenticated user
+      operationId: categories_update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categories'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Updated Category:
+                  value: |-
+                    {
+                        "id": 38,
+                        "name": "ed name...",
+                        "description": "ed Desc...",
+                        "user_id": 1,
+                        "createdAt": "2023-06-04T00:06:46.576Z",
+                        "updatedAt": "2023-06-04T00:09:54.276Z",
+                        "UserId": 1
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Categories
+    delete:
+      summary: Delete category
+      description: Delete authenticated user's category
+      operationId: categories_delete
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                confirm delete:
+                  value: 'true'
+        default:
+          description: Default error sample response
+      tags:
+        - Categories
+  /api/auths/login:
+    summary: login end-point
+    description: End-Point to get authorization token
+    post:
+      summary: Authenticate user
+      description: Get authorization token to use the api
+      operationId: auths_login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Authentication Information:
+                  value: |-
+                    {
+                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikp1bGlvIENhY2VyZXMiLCJlbWFpbCI6ImpjZXNhcjAxQGhvdG1haWwuZXMiLCJpYXQiOjE2ODU4Mzc3NDEsImV4cCI6MTY4NTkyNDE0MX0.Cea3K0Nwbdj9ngYnGc5LQClRgJubzl_36GKUibOVKNA",
+                        "user": {
+                            "id": 1,
+                            "name": "Julio Caceres",
+                            "email": "jcesar01@hotmail.es"
+                        }
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Authentication
+  /api/auths/users:
+    summary: Manage user end-point
+    description: Manage  user's info end-point
+    put:
+      summary: Update user
+      description: Updated authenticated user's information
+      operationId: auths_user_updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                User updated:
+                  value: |-
+                    {
+                        "id": 1,
+                        "name": "Jes rousno ed",
+                        "email": "jcesar01@hotmail.es",
+                        "password": "$2a$10$Q6cOc73W1dEVLw5TtBpkU.sOjinP8m1IDartm8CqowAFfyOIZvtiy",
+                        "createdAt": null,
+                        "updatedAt": "2023-06-04T00:21:37.760Z"
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Authentication
+    delete:
+      summary: Delete user
+      description: Delete an existing user
+      operationId: auths_user_delete
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                User delete fonfirmation:
+                  value: 'true'
+        default:
+          description: Default error sample response
+      tags:
+        - Authentication
+  /api/auths/register:
+    summary: Add new user
+    post:
+      summary: Create new user
+      description: ''
+      operationId: auths_user_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              examples:
+                New User:
+                  value: |-
+                    {
+                        "id": 12,
+                        "name": "Julio Caceres",
+                        "email": "jcesar01@hotmail.ess",
+                        "password": "$2a$10$lPbxdnx4GJ5JIWkbYsOZZeYUhOU4KGwLuUg0y8DbRxz47ybgakwiW",
+                        "updatedAt": "2023-06-04T00:24:33.992Z",
+                        "createdAt": "2023-06-04T00:24:33.992Z"
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Authentication
+  /api/tasks:
+    summary: Task End-Points
+    get:
+      summary: Get all tasks of the authenticated user
+      description: ''
+      operationId: tasks_get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                All user's tasks:
+                  value: |-
+                    [
+                        {
+                            "id": 13,
+                            "title": "Aperiam quia culpa illum vel.",
+                            "description": "Alias adipisci deserunt blanditiis eos.",
+                            "completed_date": null,
+                            "end_date": "2023-05-28T11:18:32.578Z",
+                            "user_id": 1,
+                            "priority_id": 1,
+                            "category_id": 4,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "CategoryId": 4,
+                            "PriorityId": 1,
+                            "UserId": 1,
+                            "Priority": {
+                                "id": 1,
+                                "name": "priority 1",
+                                "description": "Quis sed reiciendis.",
+                                "user_id": 1,
+                                "createdAt": null,
+                                "updatedAt": null,
+                                "UserId": 1
+                            },
+                            "Category": {
+                                "id": 4,
+                                "name": "totam",
+                                "description": "Minus a possimus deserunt molestias explicabo aut distinctio aperiam in.",
+                                "user_id": 1,
+                                "createdAt": null,
+                                "updatedAt": null,
+                                "UserId": 1
+                            }
+                        },
+                        {
+                            "id": 14,
+                            "title": "Iste possimus nulla maxime.",
+                            "description": "Minima asperiores nobis dolores.",
+                            "completed_date": "2022-12-27T02:10:15.195Z",
+                            "end_date": "2023-03-24T03:18:01.962Z",
+                            "user_id": 1,
+                            "priority_id": 4,
+                            "category_id": 5,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "CategoryId": 5,
+                            "PriorityId": 4,
+                            "UserId": 1,
+                            "Priority": {
+                                "id": 4,
+                                "name": "priority 4",
+                                "description": "Provident error praesentium.",
+                                "user_id": 1,
+                                "createdAt": null,
+                                "updatedAt": null,
+                                "UserId": 1
+                            },
+                            "Category": {
+                                "id": 5,
+                                "name": "voluptate",
+                                "description": "Veritatis iusto architecto.",
+                                "user_id": 1,
+                                "createdAt": null,
+                                "updatedAt": null,
+                                "UserId": 1
+                            }
+                        }
+                    ]
+        default:
+          description: Default error sample response
+      tags:
+        - Tasks
+    post:
+      summary: Create new tasks for the authenticated user
+      description: ''
+      operationId: tasks_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tasks'
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              examples:
+                New Task:
+                  value: |-
+                    {
+                        "id": 31,
+                        "title": "task's title 2",
+                        "description": "Task's description",
+                        "completed_date": "2023-05-02T00:00:00.000Z",
+                        "end_date": "2023-05-03T00:00:00.000Z",
+                        "priority_id": 1,
+                        "category_id": 2,
+                        "user_id": 1,
+                        "updatedAt": "2023-06-04T00:32:57.156Z",
+                        "createdAt": "2023-06-04T00:32:57.156Z",
+                        "CategoryId": 2,
+                        "PriorityId": 1,
+                        "UserId": 1
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Tasks
+  /api/tasks/{task_id}:
+    summary: Tasks End-Points
+    parameters:
+      - in: path
+        name: task_id
+        schema:
+          type: integer
+        required: true
+        description: Numeric ID of the task to get
+    put:
+      summary: Update user's task by id
+      description: ''
+      operationId: tasks_updte
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tasks'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Update Task:
+                  value: |-
+                    {
+                        "id": 31,
+                        "title": "task's title 2 ed",
+                        "description": "Task's description",
+                        "completed_date": "2023-05-02",
+                        "end_date": "2023-05-03",
+                        "user_id": 1,
+                        "priority_id": 1,
+                        "category_id": 2,
+                        "createdAt": "2023-06-04T00:32:57.156Z",
+                        "updatedAt": "2023-06-04T00:34:13.603Z",
+                        "CategoryId": 2,
+                        "PriorityId": 1,
+                        "UserId": 1
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Tasks
+    get:
+      summary: Get user's task by id
+      description: ''
+      operationId: tasks_get_by_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Task:
+                  value: |-
+                    {
+                        "id": 13,
+                        "title": "Aperiam quia culpa illum vel.",
+                        "description": "Alias adipisci deserunt blanditiis eos.",
+                        "completed_date": null,
+                        "end_date": "2023-05-28T11:18:32.578Z",
+                        "user_id": 1,
+                        "priority_id": 1,
+                        "category_id": 4,
+                        "createdAt": null,
+                        "updatedAt": null,
+                        "CategoryId": 4,
+                        "PriorityId": 1,
+                        "UserId": 1,
+                        "Priority": {
+                            "id": 1,
+                            "name": "priority 1",
+                            "description": "Quis sed reiciendis.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 1
+                        },
+                        "Category": {
+                            "id": 4,
+                            "name": "totam",
+                            "description": "Minus a possimus deserunt molestias explicabo aut distinctio aperiam in.",
+                            "user_id": 1,
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "UserId": 1
+                        }
+                    }
+        default:
+          description: Default error sample response
+      tags:
+        - Tasks
+    delete:
+      summary: Delete user's task
+      description: ''
+      operationId: tasks_delete
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                Delete task confirmation:
+                  value: 'true'
+        default:
+          description: Default error sample response
+      tags:
+        - Tasks
+components:
+  schemas:
+    Users:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    Credentials:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    Priorities:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Categories:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Tasks:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        completed_date:
+          type: string
+        end_date:
+          type: string
+        priority_id:
+          type: integer
+        category_id:
+          type: integer
